@@ -1,4 +1,6 @@
 .coupon-detail {
+  max-width: 750px;
+  margin: 0 auto;
   min-height: 100vh;
   background: #F5F5F5;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
