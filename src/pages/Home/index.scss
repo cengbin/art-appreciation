@@ -7,18 +7,18 @@
   text-align: center;
   padding: 60px 20px 40px;
   color: white;
-}
 
-.home-header h1 {
-  font-size: 48px;
-  margin: 0 0 16px 0;
-  font-weight: 600;
-}
+  h1 {
+    font-size: 48px;
+    margin: 0 0 16px 0;
+    font-weight: 600;
+  }
 
-.home-header p {
-  font-size: 18px;
-  margin: 0;
-  opacity: 0.9;
+  p {
+    font-size: 18px;
+    margin: 0;
+    opacity: 0.9;
+  }
 }
 
 .home-content {
@@ -27,11 +27,13 @@
   padding: 20px;
 }
 
-.page-list h2 {
-  color: white;
-  font-size: 24px;
-  margin: 0 0 20px 0;
-  padding: 0 10px;
+.page-list {
+  h2 {
+    color: white;
+    font-size: 24px;
+    margin: 0 0 20px 0;
+    padding: 0 10px;
+  }
 }
 
 .page-link {
@@ -51,11 +53,17 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   cursor: pointer;
-}
 
-.page-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .arrow {
+    font-size: 32px;
+    color: #999;
+    flex-shrink: 0;
+  }
 }
 
 .page-icon {
@@ -72,33 +80,29 @@
 
 .page-info {
   flex: 1;
-}
 
-.page-info h3 {
-  font-size: 20px;
-  margin: 0 0 8px 0;
-  color: #333;
-}
+  h3 {
+    font-size: 20px;
+    margin: 0 0 8px 0;
+    color: #333;
+  }
 
-.page-info p {
-  font-size: 14px;
-  margin: 0;
-  color: #666;
-}
-
-.page-card .arrow {
-  font-size: 32px;
-  color: #999;
-  flex-shrink: 0;
+  p {
+    font-size: 14px;
+    margin: 0;
+    color: #666;
+  }
 }
 
 @media (max-width: 768px) {
-  .home-header h1 {
-    font-size: 36px;
-  }
-  
-  .home-header p {
-    font-size: 16px;
+  .home-header {
+    h1 {
+      font-size: 36px;
+    }
+    
+    p {
+      font-size: 16px;
+    }
   }
   
   .page-card {

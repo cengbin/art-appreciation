@@ -7,7 +7,7 @@ const Home: React.FC = () => {
     <div className="home-page">
       <div className="home-header">
         <h1>欢迎使用</h1>
-        <p>Hello World - React Router 示例</p>
+        <p>React App 示例</p>
       </div>
       
       <div className="home-content">
