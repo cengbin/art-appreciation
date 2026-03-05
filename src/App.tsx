@@ -1,11 +1,11 @@
 import { BrowserRouter } from 'react-router-dom'
-import AppRoutes from './router'
+import Router from './router'
 import './App.scss'
 
 function App() {
   return (
     <BrowserRouter>
-      <AppRoutes />
+      <Router />
     </BrowserRouter>
   )
 }

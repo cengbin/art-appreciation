@@ -1,16 +1,9 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import CouponCenter from '../pages/CouponCenter';
-import CouponDetail from '../pages/CouponDetail';
+import { useRoutes } from 'react-router-dom';
+import routes from './routes';
 
-const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/coupon-center" element={<CouponCenter />} />
-      <Route path="/coupon-detail" element={<CouponDetail />} />
-    </Routes>
-  );
+const Router = () => {
+  const element = useRoutes(routes);
+  return element;
 };
 
-export default AppRoutes;
+export default Router;
