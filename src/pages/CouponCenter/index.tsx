@@ -1,5 +1,5 @@
 import React from 'react';
-import './CouponCenter.css';
+import './index.css';
 
 interface Coupon {
   id: number;

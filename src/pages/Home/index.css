@@ -1,0 +1,113 @@
+.home-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.home-header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  color: white;
+}
+
+.home-header h1 {
+  font-size: 48px;
+  margin: 0 0 16px 0;
+  font-weight: 600;
+}
+
+.home-header p {
+  font-size: 18px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.home-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.page-list h2 {
+  color: white;
+  font-size: 24px;
+  margin: 0 0 20px 0;
+  padding: 0 10px;
+}
+
+.page-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.page-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.page-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.page-icon {
+  font-size: 48px;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  flex-shrink: 0;
+}
+
+.page-info {
+  flex: 1;
+}
+
+.page-info h3 {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.page-info p {
+  font-size: 14px;
+  margin: 0;
+  color: #666;
+}
+
+.page-card .arrow {
+  font-size: 32px;
+  color: #999;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .home-header h1 {
+    font-size: 36px;
+  }
+  
+  .home-header p {
+    font-size: 16px;
+  }
+  
+  .page-card {
+    padding: 20px;
+  }
+  
+  .page-icon {
+    font-size: 36px;
+    width: 60px;
+    height: 60px;
+  }
+}
