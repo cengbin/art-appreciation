@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './index.css';
+import './index.scss';
 
 interface CouponInfo {
   category: string;
