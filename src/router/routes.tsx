@@ -1,7 +1,9 @@
+import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
-import Home from '../pages/Home';
-import CouponCenter from '../pages/CouponCenter';
-import CouponDetail from '../pages/CouponDetail';
+
+const Home = lazy(() => import('../pages/Home'));
+const CouponCenter = lazy(() => import('../pages/CouponCenter'));
+const CouponDetail = lazy(() => import('../pages/CouponDetail'));
 
 const routes: RouteObject[] = [
   {
