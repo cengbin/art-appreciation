@@ -1,4 +1,4 @@
-.couponCard {
+.coupon-card {
   display: flex;
   width: 100%;
   height: 209px;
@@ -7,7 +7,7 @@
   position: relative;
   margin-bottom: 20px;
 
-  .leftSection {
+  .left-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,14 +34,14 @@
     }
   }
 
-  .rightSection {
+  .right-section {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 24px 20px;
 
-    .couponInfo {
+    .coupon-info {
       .title {
         font-size: 18px;
         font-weight: 500;
@@ -49,13 +49,13 @@
         margin-bottom: 8px;
       }
 
-      .expireDate {
+      .expire-date {
         font-size: 14px;
         color: #999999;
       }
     }
 
-    .claimButton {
+    .claim-button {
       align-self: flex-end;
       width: 144px;
       height: 48px;

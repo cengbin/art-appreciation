@@ -1,4 +1,4 @@
-.storeInfoCard {
+.store-info-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -7,10 +7,10 @@
   background: #ffffff;
   border-radius: 12px;
 
-  .storeInfo {
+  .store-info {
     flex: 1;
 
-    .storeName {
+    .store-name {
       display: flex;
       align-items: center;
       margin-bottom: 8px;
@@ -46,7 +46,7 @@
       background: #e5e5e5;
     }
 
-    .iconButton {
+    .icon-button {
       width: 48px;
       height: 48px;
       display: flex;

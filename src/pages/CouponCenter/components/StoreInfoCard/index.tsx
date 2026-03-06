@@ -9,20 +9,20 @@ export const StoreInfoCard: React.FC<StoreInfoCardProps> = ({
   onPhoneClick,
 }) => {
   return (
-    <div className="storeInfoCard">
-      <div className="storeInfo">
-        <div className="storeName">
+    <div className="store-info-card">
+      <div className="store-info">
+        <div className="store-name">
           <span className="name">{storeName}</span>
           <span className="arrow">›</span>
         </div>
         <div className="address">{address}</div>
       </div>
       <div className="actions">
-        <button className="iconButton" onClick={onLocationClick}>
+        <button className="icon-button" onClick={onLocationClick}>
           📍
         </button>
         <div className="divider"/>
-        <button className="iconButton" onClick={onPhoneClick}>
+        <button className="icon-button" onClick={onPhoneClick}>
           📞
         </button>
       </div>

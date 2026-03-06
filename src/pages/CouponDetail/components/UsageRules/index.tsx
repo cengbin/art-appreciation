@@ -4,19 +4,19 @@ import './index.scss';
 
 export const UsageRules: React.FC<UsageRulesProps> = ({rules, contactInfo}) => {
   return (
-    <div className="usageRules">
+    <div className="usage-rules">
       <div className="title">使用须知</div>
-      <ul className="ruleList">
+      <ul className="rule-list">
         {rules.map((rule, index) => (
-          <li key={index} className="ruleItem">
+          <li key={index} className="rule-item">
             {index + 1}、{rule}
           </li>
         ))}
       </ul>
       {contactInfo && (
-        <div className="contactInfo">
+        <div className="contact-info">
           如有疑问，可
-          <span className="contactLink">{contactInfo}</span>
+          <span className="contact-link">{contactInfo}</span>
         </div>
       )}
     </div>

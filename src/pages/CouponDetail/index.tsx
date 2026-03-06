@@ -26,7 +26,7 @@ const CouponDetail: React.FC = () => {
   };
 
   return (
-    <div className="couponDetail">
+    <div className="coupon-detail">
       <Header title="优惠券" onBack={handleBack}/>
 
       <CouponInfo

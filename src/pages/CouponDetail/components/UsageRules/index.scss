@@ -1,4 +1,4 @@
-.usageRules {
+.usage-rules {
   background: #ffffff;
   margin: 20px;
   padding: 30px;
@@ -11,12 +11,12 @@
     margin-bottom: 24px;
   }
 
-  .ruleList {
+  .rule-list {
     list-style: none;
     padding: 0;
     margin: 0;
 
-    .ruleItem {
+    .rule-item {
       font-size: 16px;
       color: #666666;
       line-height: 1.8;
@@ -28,14 +28,14 @@
     }
   }
 
-  .contactInfo {
+  .contact-info {
     font-size: 16px;
     color: #666666;
     margin-top: 24px;
     padding-top: 24px;
     border-top: 1px solid #f0f0f0;
 
-    .contactLink {
+    .contact-link {
       color: #1890ff;
       text-decoration: none;
       cursor: pointer;

@@ -11,19 +11,19 @@ export const CouponInfo: React.FC<CouponInfoProps> = ({
   onShare,
 }) => {
   return (
-    <div className="couponInfo">
+    <div className="coupon-info">
       <div className="category">{category}</div>
       <div className="title">{title}</div>
       <div className="description">{description}</div>
       <div className="actions">
-        <button className="useButton" onClick={onUse}>
+        <button className="use-button" onClick={onUse}>
           立即使用
         </button>
-        <button className="shareButton" onClick={onShare}>
+        <button className="share-button" onClick={onShare}>
           🔗
         </button>
       </div>
-      <div className="validPeriod">可用时间：{validPeriod}</div>
+      <div className="valid-period">可用时间：{validPeriod}</div>
     </div>
   );
 };
