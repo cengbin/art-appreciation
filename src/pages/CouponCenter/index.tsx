@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Header } from '../../components/Header';
-import { StoreInfoCard } from './components/StoreInfoCard';
-import { CouponCard } from './components/CouponCard';
-import { Coupon } from './types';
+import React, {useState} from 'react';
+import {Header} from '../../components/Header';
+import {StoreInfoCard} from './components/StoreInfoCard';
+import {CouponCard} from './components/CouponCard';
+import {Coupon} from './types';
 import './index.scss';
 
 const CouponCenter: React.FC = () => {
@@ -36,14 +36,11 @@ const CouponCenter: React.FC = () => {
   const handleClaim = (couponId: string) => {
     setCoupons((prev) =>
       prev.map((coupon) =>
-        coupon.id === couponId ? { ...coupon, claimed: true } : coupon
+        coupon.id === couponId ? {...coupon, claimed: true} : coupon
       )
     );
   };
 
-  const handleBack = () => {
-    console.log('返回');
-  };
 
   const handleLocationClick = () => {
     console.log('定位');
@@ -55,7 +52,7 @@ const CouponCenter: React.FC = () => {
 
   return (
     <div className="coupon-center">
-      <Header title="领券中心" onBack={handleBack} />
+      <Header title="领券中心"/>
 
       <StoreInfoCard
         storeName="西顿国际店"

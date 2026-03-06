@@ -1,0 +1,48 @@
+.usageRules {
+  background: #ffffff;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 16px;
+
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 24px;
+  }
+
+  .ruleList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .ruleItem {
+      font-size: 16px;
+      color: #666666;
+      line-height: 1.8;
+      margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .contactInfo {
+    font-size: 16px;
+    color: #666666;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f0f0;
+
+    .contactLink {
+      color: #1890ff;
+      text-decoration: none;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

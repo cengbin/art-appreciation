@@ -1,0 +1,41 @@
+.availableStores {
+  background: #ffffff;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #fafafa;
+  }
+
+  &:active {
+    background: #f5f5f5;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333333;
+  }
+
+  .storeLink {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .distance {
+      font-size: 16px;
+      color: #666666;
+    }
+
+    .arrow {
+      font-size: 20px;
+      color: #999999;
+    }
+  }
+}

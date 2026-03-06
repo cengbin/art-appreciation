@@ -1,5 +1,5 @@
 ---
-name: figma-to-react-component
+name: figma-to-react
 description: 从 Figma 设计生成 React 组件化页面
 ---
 
@@ -45,6 +45,7 @@ CouponCenter (页面)
 - ✅ Props 接口严格定义
 - ✅ 导出组件使用 `export const ComponentName: React.FC<Props>`
 - ✅ 样式使用 SCSS（`index.scss`）
+- ✅ **CSS 类名使用 kebab-case（中杠命名）**
 - ❌ 不添加注释（除非必要）
 - ❌ 不添加业务逻辑，只生成 UI 结构
 - ❌ 不使用内联样式
@@ -64,11 +65,43 @@ src/
 
 ```
 
-## 组件命名规范
+## 命名规范
 
+### 组件命名
 - **组件名**：PascalCase（如 `CouponCard`, `UserProfile`）
 - **文件名**：index.tsx（组件主文件）
 - **Props 接口**：`ComponentNameProps`
+
+### CSS 类名命名（重要）
+- **CSS 类名**：kebab-case（中杠命名），如 `.coupon-card`, `.user-profile`, `.store-info-card`
+- **嵌套类名**：同样使用 kebab-case，如 `.coupon-card .card-header`
+- **状态类名**：使用 kebab-case，如 `.is-active`, `.is-disabled`
+
+**示例：**
+```scss
+.coupon-card {
+  display: flex;
+  
+  .card-header {
+    font-size: 18px;
+  }
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  &.is-claimed {
+    opacity: 0.6;
+  }
+}
+```
+
+```tsx
+<div className="coupon-card">
+  <div className="card-header">标题</div>
+  <div className="card-content">内容</div>
+</div>
+```
 
 ## 输出内容清单
 
@@ -107,3 +140,4 @@ src/
 5. 每个组件必须有 3 个文件：`index.tsx`, `types.ts`, `index.scss`
 6. 不修改现有文件，只创建新文件
 7. 生成的代码必须可以立即运行
+8. **CSS 类名必须使用 kebab-case（中杠命名），不使用 camelCase**
