@@ -1,0 +1,56 @@
+.header {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #52c1f5 0%, #4ab8ed 100%);
+
+  .statusBar {
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: #ffffff;
+    font-size: 14px;
+  }
+
+  .navigationBar {
+    height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .backButton {
+      position: absolute;
+      left: 20px;
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .moreButton {
+      position: absolute;
+      right: 20px;
+      width: 32px;
+      height: 32px;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+}

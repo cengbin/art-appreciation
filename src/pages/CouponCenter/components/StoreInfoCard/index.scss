@@ -1,0 +1,70 @@
+.storeInfoCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 20px;
+  margin: 20px 24px;
+  background: #ffffff;
+  border-radius: 12px;
+
+  .storeInfo {
+    flex: 1;
+
+    .storeName {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+
+      .name {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333333;
+        margin-right: 8px;
+      }
+
+      .arrow {
+        width: 16px;
+        height: 16px;
+        color: #999999;
+      }
+    }
+
+    .address {
+      font-size: 14px;
+      color: #666666;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .divider {
+      width: 1px;
+      height: 48px;
+      background: #e5e5e5;
+    }
+
+    .iconButton {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #333333;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #1890ff;
+      }
+
+      &:active {
+        color: #096dd9;
+      }
+    }
+  }
+}
