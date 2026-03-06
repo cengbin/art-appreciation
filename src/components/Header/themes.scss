@@ -1,0 +1,41 @@
+// 主题变量定义
+$theme-gradient-bg: linear-gradient(180deg, #52c1f5 0%, #4ab8ed 100%);
+$theme-light-bg: #ffffff;
+$theme-dark-bg: #1a1a1a;
+
+$theme-gradient-text: #ffffff;
+$theme-light-text: #333333;
+$theme-dark-text: #ffffff;
+
+// 渐变主题
+.header--gradient {
+  background: $theme-gradient-bg;
+  color: $theme-gradient-text;
+
+  .header__back-button,
+  .header__more-button {
+    color: $theme-gradient-text;
+  }
+}
+
+// 浅色主题
+.header--light {
+  background: $theme-light-bg;
+  color: $theme-light-text;
+
+  .header__back-button,
+  .header__more-button {
+    color: $theme-light-text;
+  }
+}
+
+// 深色主题
+.header--dark {
+  background: $theme-dark-bg;
+  color: $theme-dark-text;
+
+  .header__back-button,
+  .header__more-button {
+    color: $theme-dark-text;
+  }
+}

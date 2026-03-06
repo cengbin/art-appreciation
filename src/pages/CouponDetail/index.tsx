@@ -27,7 +27,7 @@ const CouponDetail: React.FC = () => {
 
   return (
     <div className="coupon-detail">
-      <Header title="优惠券" onBack={handleBack}/>
+      <Header title="优惠券" onBack={handleBack} theme='light' showMore/>
 
       <CouponInfo
         category="优惠券类型"
