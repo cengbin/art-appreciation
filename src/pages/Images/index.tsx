@@ -23,6 +23,8 @@ const ImagesPage: React.FC = () => {
   const category = urlParams.get('category') || 'all';
 
   const [selectedCategory, setSelectedCategory] = useState<string>(category);
+  const [displayedCount, setDisplayedCount] = useState<number>(100);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const categories: Category[] = photos.categories || [];
   const allImages: Photo[] = photos.images?.all || [];
@@ -49,7 +51,7 @@ const ImagesPage: React.FC = () => {
     }
   }, [selectedCategory]);
 
-  const filteredImages = useMemo(() => {
+  const categoryImages = useMemo(() => {
     if (selectedCategory === 'all') {
       return allImages;
     }
@@ -58,7 +60,46 @@ const ImagesPage: React.FC = () => {
 
   const handleCategoryClick = (categoryId: string) => {
     setSelectedCategory(categoryId);
+    setDisplayedCount(100); // 切换分类时重置显示数量
   };
+
+  // 滚动加载更多数据
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isLoading) return;
+
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // 当滚动到距离底部 200px 时触发加载
+      if (scrollTop + windowHeight >= documentHeight - 200) {
+        loadMoreImages();
+      }
+    };
+
+    const loadMoreImages = () => {
+      if (isLoading) return;
+
+      if (displayedCount >= categoryImages.length) return;
+
+      setIsLoading(true);
+
+      // 模拟异步加载延迟
+      setTimeout(() => {
+        setDisplayedCount(prev => Math.min(prev + 100, categoryImages.length));
+        setIsLoading(false);
+      }, 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [selectedCategory, displayedCount, isLoading, categoryImages]);
+
+  // 重置显示数量当分类改变时
+  useEffect(() => {
+    setDisplayedCount(100);
+  }, [selectedCategory]);
 
   return (
     <div className="images-page">
@@ -84,9 +125,9 @@ const ImagesPage: React.FC = () => {
 
         {/* 图片网格 */}
         <div className="images-grid">
-          {filteredImages.length > 0 ? (
-            filteredImages.map((photo) => (
-              <div key={photo.url} className="image-item">
+          {categoryImages.length > 0 ? (
+            categoryImages.slice(0, displayedCount).map((photo, index) => (
+              <div key={photo.url} className="image-item" data-index={index}>
                 <LazyImage
                   src={`http://localhost:8082/2%E4%B8%87%E5%BC%A0ins%E9%9D%92%E6%98%A5%E5%8A%A8%E4%BA%BA%E7%BE%8E%E5%A5%B3%E5%A3%81%E7%BA%B8%E7%BE%8E%E5%9B%BE%E5%90%88%E9%9B%86/${photo.url}`}
                   alt={photo.filename}
@@ -100,6 +141,20 @@ const ImagesPage: React.FC = () => {
           ) : (
             <div className="no-images">
               <p>该分类下暂无图片</p>
+            </div>
+          )}
+
+          {/* 加载状态 */}
+          {isLoading && displayedCount < categoryImages.length && (
+            <div className="loading-more">
+              <p>加载更多图片...</p>
+            </div>
+          )}
+
+          {/* 显示已加载数量 */}
+          {!isLoading && displayedCount < categoryImages.length && (
+            <div className="load-info">
+              <p>已加载 {displayedCount} / {categoryImages.length} 张图片</p>
             </div>
           )}
         </div>
