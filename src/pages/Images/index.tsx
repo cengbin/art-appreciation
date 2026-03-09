@@ -156,6 +156,13 @@ const ImagesPage: React.FC = () => {
               <p>正在加载更多图片...</p>
             </div>
           )}
+          
+          {/* 加载完成状态 */}
+          {!isLoading && displayedCount >= categoryImages.length && categoryImages.length > 0 && (
+            <div className="load-complete">
+              <p>已加载全部 {categoryImages.length} 张图片</p>
+            </div>
+          )}
 
           {/* 显示已加载数量 */}
           {!isLoading && displayedCount < categoryImages.length && (
