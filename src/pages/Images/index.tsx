@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState, useMemo, useEffect, useCallback, useRef} from 'react';
 import './index.scss';
 import photos from './2024-photos.json';
 import LazyImage from '../../components/LazyImage';
@@ -65,43 +65,47 @@ const ImagesPage: React.FC = () => {
     setDisplayedCount(COUNT); // 切换分类时重置显示数量
   };
 
+  // 防止重复加载的标志
+  const isLoadingRef = useRef<boolean>(false);
+
+  // 使用 useCallback 优化 loadMoreImages 函数
+  const loadMoreImages = useCallback(() => {
+    console.log('触发加载更多图片数据 isLoadingRef=', isLoadingRef.current)
+    if (isLoadingRef.current) return;
+
+    if (displayedCount >= categoryImages.length) return;
+
+    isLoadingRef.current = true;
+    console.log('开始加载图片数据... isLoadingRef=', isLoadingRef.current);
+    setIsLoading(true);
+
+    // 模拟异步加载延迟
+    setTimeout(() => {
+      setDisplayedCount(prev => Math.min(prev + COUNT, categoryImages.length));
+      setIsLoading(false);
+      isLoadingRef.current = false;
+      console.log('图片数据加载完成...')
+    }, 1000);
+  }, [displayedCount, categoryImages, COUNT]);
+
   // 滚动加载更多数据
   useEffect(() => {
     const handleScroll = () => {
-      if (isLoading) return;
+      if (isLoadingRef.current) return;
 
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      // 当滚动到距离底部 200px 时触发加载
       if (scrollTop + windowHeight >= documentHeight - 200) {
         console.log('滚动到页面底部.')
         loadMoreImages();
       }
     };
 
-    const loadMoreImages = () => {
-      console.log('触发加载更多图片 isLoading=', isLoading)
-      if (isLoading) return;
-
-      if (displayedCount >= categoryImages.length) return;
-
-      console.log('开始加载图片...')
-
-      setIsLoading(true);
-
-      // 模拟异步加载延迟
-      setTimeout(() => {
-        setDisplayedCount(prev => Math.min(prev + COUNT, categoryImages.length));
-        setIsLoading(false);
-        console.log('加载图片完成...')
-      }, 1000);
-    };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [selectedCategory, isLoading]);
+  }, [selectedCategory, loadMoreImages]);
 
   return (
     <div className="images-page">
@@ -149,7 +153,7 @@ const ImagesPage: React.FC = () => {
           {/* 加载状态 */}
           {isLoading && displayedCount < categoryImages.length && (
             <div className="loading-more">
-              <p>加载更多图片...</p>
+              <p>正在加载更多图片...</p>
             </div>
           )}
 
