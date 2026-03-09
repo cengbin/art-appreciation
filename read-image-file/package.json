@@ -1,0 +1,21 @@
+{
+  "name": "read-images",
+  "version": "1.0.0",
+  "description": "递归读取指定目录下的图片，按目录名分类",
+  "main": "read-images.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node read-images.js ./test-images"
+  },
+  "keywords": [
+    "image",
+    "directory",
+    "recursive",
+    "classification"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
