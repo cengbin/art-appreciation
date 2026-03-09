@@ -17,13 +17,15 @@ interface Category {
   id: string;
 }
 
+const COUNT = 50
+
 const ImagesPage: React.FC = () => {
   // 获取当前 URL 参数
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('category') || 'all';
 
   const [selectedCategory, setSelectedCategory] = useState<string>(category);
-  const [displayedCount, setDisplayedCount] = useState<number>(100);
+  const [displayedCount, setDisplayedCount] = useState<number>(COUNT);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const categories: Category[] = photos.categories || [];
@@ -60,7 +62,7 @@ const ImagesPage: React.FC = () => {
 
   const handleCategoryClick = (categoryId: string) => {
     setSelectedCategory(categoryId);
-    setDisplayedCount(100); // 切换分类时重置显示数量
+    setDisplayedCount(COUNT); // 切换分类时重置显示数量
   };
 
   // 滚动加载更多数据
@@ -74,27 +76,32 @@ const ImagesPage: React.FC = () => {
 
       // 当滚动到距离底部 200px 时触发加载
       if (scrollTop + windowHeight >= documentHeight - 200) {
+        console.log('滚动到页面底部.')
         loadMoreImages();
       }
     };
 
     const loadMoreImages = () => {
+      console.log('触发加载更多图片 isLoading=', isLoading)
       if (isLoading) return;
 
       if (displayedCount >= categoryImages.length) return;
+
+      console.log('开始加载图片...')
 
       setIsLoading(true);
 
       // 模拟异步加载延迟
       setTimeout(() => {
-        setDisplayedCount(prev => Math.min(prev + 100, categoryImages.length));
+        setDisplayedCount(prev => Math.min(prev + COUNT, categoryImages.length));
         setIsLoading(false);
-      }, 500);
+        console.log('加载图片完成...')
+      }, 1000);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [selectedCategory, displayedCount, isLoading, categoryImages]);
+  }, [selectedCategory, isLoading]);
 
   return (
     <div className="images-page">
