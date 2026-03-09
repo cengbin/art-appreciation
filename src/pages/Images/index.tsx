@@ -2,6 +2,7 @@ import React, {useState, useMemo, useEffect, useCallback, useRef} from 'react';
 import './index.scss';
 import photos from './2024-photos.json';
 import LazyImage from '../../components/LazyImage';
+import {Header} from '../../components/Header';
 
 interface Photo {
   filename: string;
@@ -114,6 +115,21 @@ const ImagesPage: React.FC = () => {
 
   return (
     <div className="images-page">
+      <Header
+        title="图片欣赏"
+        theme="gradient"
+        position="relative"
+        height={120}
+        showBack={false}
+        shadow={true}
+        centerContent={
+          <div className="header-center-content">
+            <h1 className="page-title">图片欣赏</h1>
+            <p className="page-subtitle">探索精美图片集合，发现视觉之美</p>
+          </div>
+        }
+      />
+
       <div className="container">
         {/* 分类导航 */}
         <div className="categories-nav">
@@ -140,9 +156,9 @@ const ImagesPage: React.FC = () => {
             categoryImages.slice(0, displayedCount).map((photo, index) => {
               const fullImageUrl = `http://localhost:8082/2%E4%B8%87%E5%BC%A0ins%E9%9D%92%E6%98%A5%E5%8A%A8%E4%BA%BA%E7%BE%8E%E5%A5%B3%E5%A3%81%E7%BA%B8%E7%BE%8E%E5%9B%BE%E5%90%88%E9%9B%86/${photo.url}`;
               return (
-                <div 
-                  key={photo.url} 
-                  className="image-item" 
+                <div
+                  key={photo.url}
+                  className="image-item"
                   data-index={index}
                   onClick={() => handleImageClick(fullImageUrl)}
                 >
@@ -169,7 +185,7 @@ const ImagesPage: React.FC = () => {
               <p>正在加载更多图片...</p>
             </div>
           )}
-          
+
           {/* 加载完成状态 */}
           {!isLoading && displayedCount >= categoryImages.length && categoryImages.length > 0 && (
             <div className="load-complete">
