@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const config = require('./config.js');
 
 /**
  * 递归读取指定目录下的图片文件
@@ -27,6 +28,11 @@ function readImagesRecursively(rootDir) {
                 const stats = fs.statSync(itemPath);
                 
                 if (stats.isDirectory()) {
+                    // 检查是否在排除列表中
+                    if (config.exclude && config.exclude.includes(item)) {
+                        console.log(`跳过排除目录: ${itemPath}`);
+                        continue;
+                    }
                     // 如果是目录，递归遍历
                     traverseDirectory(itemPath, itemRelativePath);
                 } else if (stats.isFile()) {
@@ -182,16 +188,17 @@ function saveToJSON(data, outputDir = './output', fileName = 'image-data.json', 
 
 // 主函数
 function main() {
-    const targetDirectory = process.argv[2];
-    const outputDir = process.argv[3] || './output';
-    const fileName = process.argv[4] || 'image-data.json';
+    // 从配置文件读取设置
+    const targetDirectory = config.input;
+    const outputPath = config.output;
+    const excludeDirs = config.exclude || [];
+    
+    // 解析输出路径，分离目录和文件名
+    const outputDir = path.dirname(outputPath);
+    const fileName = path.basename(outputPath);
     
     if (!targetDirectory) {
-        console.log('使用方法: node index.js <图片目录路径> [输出目录] [JSON文件名]');
-        console.log('示例:');
-        console.log('  node index.js ./images');
-        console.log('  node index.js ./images ./output my-images.json');
-        console.log('  node index.js "C:\\Pictures" ./data photos.json');
+        console.error('错误: 配置文件中未指定输入目录');
         process.exit(1);
     }
     
@@ -206,8 +213,8 @@ function main() {
     }
     
     console.log(`开始扫描目录: ${targetDirectory}`);
-    console.log(`输出目录: ${outputDir}`);
-    console.log(`文件名: ${fileName}\n`);
+    console.log(`输出文件: ${outputPath}`);
+    console.log(`排除目录: ${excludeDirs.length > 0 ? excludeDirs.join(', ') : '无'}\n`);
     
     const imageData = readImagesRecursively(targetDirectory);
     

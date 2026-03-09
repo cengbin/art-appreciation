@@ -1,6 +1,6 @@
 import React, {useState, useMemo, useEffect, useCallback, useRef} from 'react';
 import './index.scss';
-import photos from './2024-photos.json';
+import photos from './photos.json';
 import LazyImage from '../../components/LazyImage';
 import {Header} from '../../components/Header';
 

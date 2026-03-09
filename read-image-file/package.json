@@ -4,8 +4,7 @@
   "description": "递归读取指定目录下的图片，按目录名分类",
   "main": "read-images.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "node read-images.js ./test-images"
+    "start": "node index.js"
   },
   "keywords": [
     "image",
