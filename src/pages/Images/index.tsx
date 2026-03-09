@@ -96,11 +96,6 @@ const ImagesPage: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [selectedCategory, displayedCount, isLoading, categoryImages]);
 
-  // 重置显示数量当分类改变时
-  useEffect(() => {
-    setDisplayedCount(100);
-  }, [selectedCategory]);
-
   return (
     <div className="images-page">
       <div className="container">
