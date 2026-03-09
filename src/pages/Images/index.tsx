@@ -60,8 +60,6 @@ const ImagesPage: React.FC = () => {
     setSelectedCategory(categoryId);
   };
 
-  console.log({filteredImages})
-
   return (
     <div className="images-page">
       <div className="container">
