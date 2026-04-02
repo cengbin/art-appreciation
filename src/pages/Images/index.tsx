@@ -1,4 +1,5 @@
 import React, {useState, useMemo, useEffect, useCallback, useRef} from 'react';
+import Viewer from 'react-viewer';
 import './index.scss';
 import photos from './photos.json';
 import LazyImage from '../../components/LazyImage';
@@ -28,6 +29,8 @@ const ImagesPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>(category);
   const [displayedCount, setDisplayedCount] = useState<number>(COUNT);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [viewerVisible, setViewerVisible] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const categories: Category[] = photos.categories || [];
   const allImages: Photo[] = photos.images?.all || [];
@@ -66,10 +69,19 @@ const ImagesPage: React.FC = () => {
     setDisplayedCount(COUNT); // 切换分类时重置显示数量
   };
 
-  // 处理图片点击，在新标签页打开
-  const handleImageClick = (imageUrl: string) => {
-    window.open(imageUrl, '_blank');
+  // 处理图片点击,打开查看器
+  const handleImageClick = (index: number) => {
+    setActiveIndex(index);
+    setViewerVisible(true);
   };
+
+  // 准备图片数据供 react-viewer 使用
+  const viewerImages = useMemo(() => {
+    return categoryImages.slice(0, displayedCount).map(photo => ({
+      src: `http://localhost:8082/2%E4%B8%87%E5%BC%A0ins%E9%9D%92%E6%98%A5%E5%8A%A8%E4%BA%BA%E7%BE%8E%E5%A5%B3%E5%A3%81%E7%BA%B8%E7%BE%8E%E5%9B%BE%E5%90%88%E9%9B%86/${photo.url}`,
+      alt: photo.filename
+    }));
+  }, [categoryImages, displayedCount]);
 
   // 防止重复加载的标志
   const isLoadingRef = useRef<boolean>(false);
@@ -160,7 +172,7 @@ const ImagesPage: React.FC = () => {
                   key={photo.url}
                   className="image-item"
                   data-index={index}
-                  onClick={() => handleImageClick(fullImageUrl)}
+                  onClick={() => handleImageClick(index)}
                 >
                   <LazyImage
                     src={fullImageUrl}
@@ -201,6 +213,20 @@ const ImagesPage: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* 图片查看器 */}
+      <Viewer
+        visible={viewerVisible}
+        onClose={() => setViewerVisible(false)}
+        images={viewerImages}
+        activeIndex={activeIndex}
+        zIndex={9999}
+        scalable={true}
+        rotatable={true}
+        downloadable={false}
+        noNavbar={false}
+        noToolbar={false}
+      />
     </div>
   );
 };
