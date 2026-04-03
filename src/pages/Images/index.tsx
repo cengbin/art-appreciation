@@ -154,8 +154,8 @@ const ImagesPage: React.FC = () => {
   return (
     <div className="images-page">
       <GalleryHeader
-        title="图片欣赏"
-        subtitle="探索精美图片集合，发现视觉之美"
+        title="艺术欣赏"
+        subtitle="探索精美艺术，发现视觉之美"
         categories={categories}
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryClick}
