@@ -1,5 +1,5 @@
 import React from 'react';
-import LazyImage from '../LazyImage';
+import LazyImage from '../../../../components/LazyImage';
 import './index.scss';
 
 interface Photo {

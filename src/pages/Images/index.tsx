@@ -2,9 +2,9 @@ import React, {useState, useMemo, useEffect, useCallback, useRef} from 'react';
 import Viewer from 'react-viewer';
 import './index.scss';
 import photos from './photos.json';
-import GalleryHeader from '../../components/GalleryHeader';
-import ImageGrid from '../../components/ImageGrid';
-import LoadingIndicator from '../../components/LoadingIndicator';
+import GalleryHeader from './components/GalleryHeader';
+import ImageGrid from './components/ImageGrid';
+import LoadingIndicator from './components/LoadingIndicator';
 
 interface Photo {
   filename: string;
