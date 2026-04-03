@@ -2,8 +2,9 @@ import React, {useState, useMemo, useEffect, useCallback, useRef} from 'react';
 import Viewer from 'react-viewer';
 import './index.scss';
 import photos from './photos.json';
-import LazyImage from '../../components/LazyImage';
-import {Header} from '../../components/Header';
+import GalleryHeader from '../../components/GalleryHeader';
+import ImageGrid from '../../components/ImageGrid';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 interface Photo {
   filename: string;
@@ -19,7 +20,8 @@ interface Category {
   id: string;
 }
 
-const COUNT = 50
+const COUNT = 50;
+const IMAGE_BASE_URL = 'http://localhost:8082/2%E4%B8%87%E5%BC%A0ins%E9%9D%92%E6%98%A5%E5%8A%A8%E4%BA%BA%E7%BE%8E%E5%A5%B3%E5%A3%81%E7%BA%B8%E7%BE%8E%E5%9B%BE%E5%90%88%E9%9B%86/';
 
 const ImagesPage: React.FC = () => {
   // 获取当前 URL 参数
@@ -80,10 +82,28 @@ const ImagesPage: React.FC = () => {
   // 准备图片数据供 react-viewer 使用
   const viewerImages = useMemo(() => {
     return categoryImages.slice(0, displayedCount).map(photo => ({
-      src: `http://localhost:8082/2%E4%B8%87%E5%BC%A0ins%E9%9D%92%E6%98%A5%E5%8A%A8%E4%BA%BA%E7%BE%8E%E5%A5%B3%E5%A3%81%E7%BA%B8%E7%BE%8E%E5%9B%BE%E5%90%88%E9%9B%86/${photo.url}`,
+      src: `${IMAGE_BASE_URL}${photo.url}`,
       alt: photo.filename
     }));
   }, [categoryImages, displayedCount]);
+
+  const displayedImages = useMemo(() => {
+    return categoryImages.slice(0, displayedCount);
+  }, [categoryImages, displayedCount]);
+
+  const currentCategory = useMemo(() => {
+    return categories.find(item => item.id === selectedCategory);
+  }, [categories, selectedCategory]);
+
+  const selectedCategoryLabel = currentCategory?.name || (selectedCategory === 'all' ? 'All Images' : selectedCategory);
+
+  const emptyStateText = useMemo(() => {
+    if (selectedCategory === 'all') {
+      return '暂无图片';
+    }
+
+    return `${selectedCategoryLabel} 分类下暂无图片`;
+  }, [selectedCategory, selectedCategoryLabel]);
 
   // 防止重复加载的标志
   const isLoadingRef = useRef<boolean>(false);
@@ -127,93 +147,37 @@ const ImagesPage: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [selectedCategory, loadMoreImages]);
 
+  const handleImageError = (filename: string) => {
+    console.warn(`Failed to load image: ${filename}`);
+  };
+
   return (
     <div className="images-page">
-      <Header
+      <div className="images-page__texture"></div>
+
+      <GalleryHeader
         title="图片欣赏"
-        theme="gradient"
-        position="relative"
-        height={120}
-        showBack={false}
-        shadow={true}
-        centerContent={
-          <div className="header-center-content">
-            <h1 className="page-title">图片欣赏</h1>
-            <p className="page-subtitle">探索精美图片集合，发现视觉之美</p>
-          </div>
-        }
+        subtitle="探索精美图片集合，发现视觉之美"
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={handleCategoryClick}
       />
 
       <div className="container">
-        {/* 分类导航 */}
-        <div className="categories-nav">
-          <button
-            className={`category-btn ${selectedCategory === 'all' ? 'active' : ''}`}
-            onClick={() => handleCategoryClick('all')}
-          >
-            全部图片 ({allImages.length})
-          </button>
-          {categories.map(category => (
-            <button
-              key={category.id}
-              className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
-              onClick={() => handleCategoryClick(category.id)}
-            >
-              {category.name} ({category.count})
-            </button>
-          ))}
-        </div>
+        <ImageGrid
+          images={displayedImages}
+          emptyText={emptyStateText}
+          onImageClick={handleImageClick}
+          imageUrlPrefix={IMAGE_BASE_URL}
+          onImageError={handleImageError}
+        />
 
-        {/* 图片网格 */}
-        <div className="images-grid">
-          {categoryImages.length > 0 ? (
-            categoryImages.slice(0, displayedCount).map((photo, index) => {
-              const fullImageUrl = `http://localhost:8082/2%E4%B8%87%E5%BC%A0ins%E9%9D%92%E6%98%A5%E5%8A%A8%E4%BA%BA%E7%BE%8E%E5%A5%B3%E5%A3%81%E7%BA%B8%E7%BE%8E%E5%9B%BE%E5%90%88%E9%9B%86/${photo.url}`;
-              return (
-                <div
-                  key={photo.url}
-                  className="image-item"
-                  data-index={index}
-                  onClick={() => handleImageClick(index)}
-                >
-                  <LazyImage
-                    src={fullImageUrl}
-                    alt={photo.filename}
-                    className="image-item-img"
-                    onError={() => {
-                      console.warn(`Failed to load image: ${photo.filename}`);
-                    }}
-                  />
-                </div>
-              );
-            })
-          ) : (
-            <div className="no-images">
-              <p>该分类下暂无图片</p>
-            </div>
-          )}
-
-          {/* 加载状态 */}
-          {isLoading && displayedCount < categoryImages.length && (
-            <div className="loading-more">
-              <p>正在加载更多图片...</p>
-            </div>
-          )}
-
-          {/* 加载完成状态 */}
-          {!isLoading && displayedCount >= categoryImages.length && categoryImages.length > 0 && (
-            <div className="load-complete">
-              <p>已加载全部 {categoryImages.length} 张图片</p>
-            </div>
-          )}
-
-          {/* 显示已加载数量 */}
-          {!isLoading && displayedCount < categoryImages.length && (
-            <div className="load-info">
-              <p>已加载 {displayedCount} / {categoryImages.length} 张图片</p>
-            </div>
-          )}
-        </div>
+        <LoadingIndicator
+          isLoading={isLoading}
+          loadedCount={displayedCount}
+          totalCount={categoryImages.length}
+          hasItems={categoryImages.length > 0}
+        />
       </div>
 
       {/* 图片查看器 */}
