@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import CategoryModal from '../CategoryModal';
 import './index.scss';
 
@@ -25,18 +25,49 @@ const CategoryNav: React.FC<CategoryNavProps> = ({
 
   // 点击分类时滚动到中间
   const scrollToCenter = (categoryId: string) => {
-    if (!navRef.current || !trackRef.current) return;
+    if (!navRef.current) {
+      return;
+    }
+    if (!trackRef.current) {
+      return;
+    }
 
     const button = trackRef.current.querySelector(`[data-category-id="${categoryId}"]`) as HTMLElement;
-    if (!button) return;
+    if (!button) {
+      return;
+    }
 
+    // 获取滚动容器和按钮的尺寸信息
     const navWidth = navRef.current.offsetWidth;
-    const buttonLeft = button.offsetLeft;
+    const navScrollLeft = navRef.current.scrollLeft;
+
+    // 使用 getBoundingClientRect 获取准确的相对位置
+    // button.offsetLeft 会受到 track 的 offsetLeft 影响，导致计算错误
+    // 正确做法：计算按钮相对于滚动容器的位置
+    const scrollRect = navRef.current.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+
+    // 按钮左边界相对于滚动容器左边界的距离 + 当前已滚动的距离
+    const buttonLeft = buttonRect.left - scrollRect.left + navScrollLeft;
     const buttonWidth = button.offsetWidth;
 
+    // console.log('滚动容器宽度 (navWidth):', navWidth);
+    // console.log('当前滚动位置 (navScrollLeft):', navScrollLeft);
+    // console.log('按钮左侧偏移 (buttonLeft):', buttonLeft);
+    // console.log('按钮宽度 (buttonWidth):', buttonWidth);
+    // console.log('scrollRect.left:', scrollRect.left, 'buttonRect.left:', buttonRect.left);
+
     // 计算滚动位置，使按钮居中
+    // 公式: 按钮左侧位置 - (容器宽度的一半) + (按钮宽度的一半)
+    // 为什么是减号？因为我们要让按钮中心对齐到容器中心
+    // 按钮中心位置 = buttonLeft + buttonWidth/2
+    // 容器中心相对于滚动起点 = scrollLeft + navWidth/2
+    // 要让两者相等: buttonLeft + buttonWidth/2 = scrollLeft + navWidth/2
+    // 解方程得: scrollLeft = buttonLeft + buttonWidth/2 - navWidth/2
     const scrollLeft = buttonLeft - (navWidth / 2) + (buttonWidth / 2);
-    
+
+    // console.log('计算出的目标滚动位置 (scrollLeft):', scrollLeft);
+
     navRef.current.scrollTo({
       left: scrollLeft,
       behavior: 'smooth'
@@ -49,8 +80,8 @@ const CategoryNav: React.FC<CategoryNavProps> = ({
   }, [selectedCategory]);
 
   const handleCategoryClick = (categoryId: string) => {
+    // 只调用 onCategoryChange，滚动会由 useEffect 自动触发
     onCategoryChange(categoryId);
-    scrollToCenter(categoryId);
   };
 
   const handleMoreClick = () => {
@@ -92,7 +123,7 @@ const CategoryNav: React.FC<CategoryNavProps> = ({
             ))}
           </div>
         </div>
-        
+
         <button
           type="button"
           className="category-nav__more-btn"
