@@ -1,4 +1,5 @@
 import React from 'react';
+import CategoryNav from '../CategoryNav';
 import './index.scss';
 
 interface Category {
@@ -30,27 +31,11 @@ const GalleryHeader: React.FC<GalleryHeaderProps> = ({
           <p className="gallery-header__subtitle">{subtitle}</p>
         </div>
 
-        <div className="gallery-header__nav">
-          <div className="gallery-header__nav-track">
-            <button
-              type="button"
-              className={`gallery-header__category-btn ${selectedCategory === 'all' ? 'active' : ''}`}
-              onClick={() => onCategoryChange('all')}
-            >
-              All
-            </button>
-            {categories.map(category => (
-              <button
-                type="button"
-                key={category.id}
-                className={`gallery-header__category-btn ${selectedCategory === category.id ? 'active' : ''}`}
-                onClick={() => onCategoryChange(category.id)}
-              >
-                {category.name}
-              </button>
-            ))}
-          </div>
-        </div>
+        <CategoryNav
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={onCategoryChange}
+        />
       </div>
     </div>
   );

@@ -153,8 +153,6 @@ const ImagesPage: React.FC = () => {
 
   return (
     <div className="images-page">
-      <div className="images-page__texture"></div>
-
       <GalleryHeader
         title="图片欣赏"
         subtitle="探索精美图片集合，发现视觉之美"
