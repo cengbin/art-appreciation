@@ -1,5 +1,5 @@
 {
-  "name": "read-images",
+  "name": "image-category-generator",
   "version": "1.0.0",
   "description": "递归读取指定目录下的图片，按目录名分类",
   "main": "read-images.js",
