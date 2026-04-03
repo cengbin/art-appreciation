@@ -26,14 +26,16 @@ const ImagesPage: React.FC = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('category') || 'all';
 
+  const photosData = photos as any;
+
   const [selectedCategory, setSelectedCategory] = useState<string>(category);
   const [displayedCount, setDisplayedCount] = useState<number>(COUNT);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [viewerVisible, setViewerVisible] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
-  const categories: Category[] = photos.categories || [];
-  const allImages: Photo[] = photos.images?.all || [];
+  const categories: Category[] = photosData.categories || [];
+  const allImages: Photo[] = photosData.images?.all || [];
 
   /**
    * 当分类改变时，同步更新 URL 参数
