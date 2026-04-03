@@ -7,11 +7,13 @@ description: 代码提交到 GitHub 的完整流程
 ## 步骤
 
 1. 检查当前代码状态
+// turbo
 ```bash
 git status
 ```
 
 2. 查看具体修改内容
+// turbo
 ```bash
 git diff
 ```
@@ -23,6 +25,7 @@ git add .
 ```
 
 4. 提交代码（使用规范的 commit 信息）
+// turbo
 ```bash
 git commit -m "类型: 简短描述"
 ```
@@ -38,6 +41,7 @@ git commit -m "类型: 简短描述"
 - `chore`: 构建/工具变动
 
 5. 推送到 GitHub
+// turbo
 ```bash
 git push
 ```
