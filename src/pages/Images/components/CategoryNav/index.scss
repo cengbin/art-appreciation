@@ -35,7 +35,7 @@
     background: #201f21;
     color: #ffffff;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    transition: 0.3s ease;
     font-size: 14px;
     font-weight: 500;
     white-space: nowrap;
@@ -65,7 +65,7 @@
     background: #201f21;
     color: #adaaab;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    transition: 0.3s ease;
     flex-shrink: 0;
 
     &:hover {
