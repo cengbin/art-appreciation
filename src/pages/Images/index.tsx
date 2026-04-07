@@ -1,5 +1,5 @@
 import React, {useState, useMemo, useEffect, useCallback, useRef} from 'react';
-import Viewer from 'react-viewer';
+import ImageViewer from '../../components/ImageViewer';
 import './index.scss';
 import photos from './photos.json';
 import GalleryHeader from './components/GalleryHeader';
@@ -179,7 +179,7 @@ const ImagesPage: React.FC = () => {
       </div>
 
       {/* 图片查看器 */}
-      <Viewer
+      <ImageViewer
         visible={viewerVisible}
         onClose={() => setViewerVisible(false)}
         images={viewerImages}
@@ -187,9 +187,10 @@ const ImagesPage: React.FC = () => {
         zIndex={9999}
         scalable={true}
         rotatable={true}
-        downloadable={false}
         noNavbar={false}
         noToolbar={false}
+        showThumbnails={true}
+        thumbnailSize={70}
       />
     </div>
   );
